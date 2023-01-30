@@ -1,6 +1,8 @@
 package com.example.youbookingbackend.rest;
 
 import com.example.youbookingbackend.Config.JwtUtil;
+import com.example.youbookingbackend.entity.Role;
+import com.example.youbookingbackend.repository.RoleRespository;
 import com.example.youbookingbackend.repository.dto.AuthenticationDto;
 import com.example.youbookingbackend.repository.dto.ResponseDto;
 import com.example.youbookingbackend.repository.dto.UserDto;
@@ -27,6 +29,9 @@ public class UserController {
     private UserDetailsService userDetailsService;
 
     @Autowired
+    private RoleRespository roleRespository;
+
+    @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
@@ -45,6 +50,15 @@ public class UserController {
     public List<User> getAllUsers(){
         return userService.findAllUsers();
     }
+
+    @PostMapping("/addRole")
+    public Role addRole(@RequestBody Role role){
+        return roleRespository.save(role);
+    }
+
+
+    @GetMapping("/AllRoles")
+    public List<Role> getRoles(){return roleRespository.findAll();}
 
     @PostMapping("/auth/authenticate")
     public ResponseDto authenticate(@RequestBody AuthenticationDto request){
