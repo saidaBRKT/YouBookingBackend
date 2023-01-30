@@ -1,6 +1,7 @@
 services:
   youBooking:
     image: youbooking
+    build: .
     ports:
       - "8090:8081"
     depends_on:
